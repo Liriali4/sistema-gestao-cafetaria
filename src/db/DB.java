@@ -19,12 +19,28 @@ public class DB {
             try {
                 Properties props = loadProperties();
                 String url = props.getProperty("dburl");
-                conn = DriverManager.getConnection(url, props);
+                String databaseName = props.getProperty("database");
+
+                createDatabaseIfNotExists(url, databaseName, props);
+                
+                String urlWithDb = url + databaseName;
+                conn = DriverManager.getConnection(urlWithDb, props);
             } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
         }
         return conn;
+    }
+
+    //--------------- Criar BD se não existir -------------------
+    private static void createDatabaseIfNotExists(String baseUrl, String dbName, Properties props) {
+        try (Connection serverConn = DriverManager.getConnection(baseUrl, props); Statement st = serverConn.createStatement()) {
+
+            String sql = "CREATE DATABASE IF NOT EXISTS " + dbName;
+            st.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new DbException("Erro ao criar a base de dados: " + e.getMessage());
+        }
     }
 
     //--------------- Carregar as propriedades -------------------

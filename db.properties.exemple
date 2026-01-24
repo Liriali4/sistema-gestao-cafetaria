@@ -1,4 +1,5 @@
 user=user
 password=password
-dburl=jdbc:mysql://localhost:3306/db_name
+dburl=jdbc:mysql://localhost:3306
 useSSL=false
+database=db_name
