@@ -1,19 +1,23 @@
 package model.entidades;
 
 public class Funcionario {
-    private String idFuncionario;
+
+    private Integer idFuncionario;
     private String nome;
 
-    public Funcionario(String idFuncionario, String nome) {
+    public Funcionario() {
+    }
+
+    public Funcionario(Integer idFuncionario, String nome) {
         this.idFuncionario = idFuncionario;
         this.nome = nome;
     }
 
-    public String getIdFuncionario() {
+    public Integer getIdFuncionario() {
         return idFuncionario;
     }
 
-    public void setIdFuncionario(String idFuncionario) {
+    public void setIdFuncionario(Integer idFuncionario) {
         this.idFuncionario = idFuncionario;
     }
 
@@ -24,6 +28,5 @@ public class Funcionario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    
+
 }

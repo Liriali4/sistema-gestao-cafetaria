@@ -1,19 +1,22 @@
 package model.entidades;
 
 public class Cliente {
-    private String idCliente;
+    private Integer idCliente;
     private String nome;
 
-    public Cliente(String idCliente, String nome) {
+    public Cliente() {
+    }
+    
+    public Cliente(Integer idCliente, String nome) {
         this.idCliente = idCliente;
         this.nome = nome;
     }
 
-    public String getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(String idCliente) {
+    public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 

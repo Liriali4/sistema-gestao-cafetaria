@@ -1,21 +1,25 @@
 package model.entidades;
 
 public class Produto {
-    private String idProduto;
+
+    private Integer idProduto;
     private String nome;
     private Float preco;
 
-    public Produto(String idProduto, String nome, Float preco) {
+    public Produto() {
+    }
+
+    public Produto(Integer idProduto, String nome, Float preco) {
         this.idProduto = idProduto;
         this.nome = nome;
         this.preco = preco;
     }
 
-    public String getIdProduto() {
+    public Integer getIdProduto() {
         return idProduto;
     }
 
-    public void setIdProduto(String idProduto) {
+    public void setIdProduto(Integer idProduto) {
         this.idProduto = idProduto;
     }
 
@@ -34,5 +38,5 @@ public class Produto {
     public void setPreco(Float preco) {
         this.preco = preco;
     }
-    
+
 }
