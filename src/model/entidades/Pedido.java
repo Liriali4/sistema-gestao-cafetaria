@@ -61,4 +61,8 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
+    @Override
+    public String toString() {
+        return "Pedido{" + "idPedido=" + idPedido + ", cliente=" + cliente + ", funcionario=" + funcionario + ", data=" + data + ", valorTotal=" + valorTotal + '}';
+    }
 }

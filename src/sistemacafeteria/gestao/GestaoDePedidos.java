@@ -1,7 +1,9 @@
 package sistemacafeteria.gestao;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import model.dao.ClienteDao;
 import model.dao.DAO;
 import model.dao.FuncionarioDao;
@@ -99,7 +101,7 @@ public class GestaoDePedidos {
                         item.setValor(subtotal);
 
                         itemPedidoDao.inserir(item); //Gaurdar item
-                                                
+
                         System.out.print("Adicionar outro produto? (s/n): ");
                         opcao = input.next().charAt(0);
                         input.nextLine();
@@ -115,13 +117,115 @@ public class GestaoDePedidos {
                     break;
 
                 case 2:
+                    System.out.print("Id do Pedido: ");
+                    int idPedidoEdit = input.nextInt();
+                    input.nextLine();
+
+                    Pedido pedidoEdit = pedidoDao.pesquisar(idPedidoEdit);
+                    if (pedidoEdit == null) {
+                        System.out.println("Pedido não encontrado!");
+                        break;
+                    }
+
+                    System.out.print("Id do Produto: ");
+                    int idProdutoEdit = input.nextInt();
+                    input.nextLine();
+
+                    ItemPedido itemEdit = itemPedidoDao.pesquisar(idPedidoEdit, idProdutoEdit);
+                    if (itemEdit == null) {
+                        System.out.println("Item não encontrado no pedido!");
+                        break;
+                    }
+
+                    System.out.print("Nova quantidade: ");
+                    int novaQtd = input.nextInt();
+                    input.nextLine();
+
+                    Produto prod = produtoDao.pesquisar(idProdutoEdit);
+                    float novoSubtotal = novaQtd * prod.getPreco();
+
+                    itemEdit.setQuantidade(novaQtd);
+                    itemEdit.setValor(novoSubtotal);
+                    itemPedidoDao.actualizar(itemEdit);
+
+                    // 🔁 Recalcular total
+                    List<ItemPedido> itensPedido = itemPedidoDao.listar().stream()
+                            .filter(ip -> ip.getPedido() == idPedidoEdit)
+                            .collect(Collectors.toList());
+
+                    double novoTotal = itensPedido.stream()
+                            .mapToDouble(ItemPedido::getValor)
+                            .sum();
+
+                    pedidoEdit.setValorTotal((float) novoTotal);
+                    pedidoDao.actualizar(pedidoEdit);
+
+                    System.out.println("Pedido atualizado com sucesso!");
                     break;
+
                 case 3:
+                    List<Pedido> listaPedidos = pedidoDao.listar();
+                    List<ItemPedido> listaItenDoPedidos = itemPedidoDao.listar();
+
+                    for (Pedido obj : listaPedidos) {
+                        System.out.println(obj);
+
+                        List<ItemPedido> listaItenDoPedido = listaItenDoPedidos.stream()
+                                .filter(ip -> ip.getPedido() == obj.getIdPedido())
+                                .collect(Collectors.toList());
+
+                        for (ItemPedido i : listaItenDoPedido) {
+                            System.out.println(i);
+                        }
+                    }
+
                     break;
                 case 4:
+                    System.out.print("Id do Pedido: ");
+                    int idBusca = input.nextInt();
+                    input.nextLine();
+
+                    Pedido pedidoBuscado = pedidoDao.pesquisar(idBusca);
+                    if (pedidoBuscado == null) {
+                        System.out.println("Pedido não encontrado!");
+                        break;
+                    }
+
+                    System.out.println(pedidoBuscado);
+
+                    List<ItemPedido> itens = itemPedidoDao.listar().stream()
+                            .filter(ip -> ip.getPedido() == idBusca)
+                            .collect(Collectors.toList());
+
+                    for (ItemPedido i : itens) {
+                        System.out.println(i);
+                    }
                     break;
+
                 case 5:
+                    System.out.print("Id do Pedido: ");
+                    int idRemover = input.nextInt();
+                    input.nextLine();
+
+                    Pedido pedidoRemover = pedidoDao.pesquisar(idRemover);
+                    if (pedidoRemover == null) {
+                        System.out.println("Pedido não encontrado!");
+                        break;
+                    }
+
+                    List<ItemPedido> itensRemover = itemPedidoDao.listar().stream()
+                            .filter(ip -> ip.getPedido() == idRemover)
+                            .collect(Collectors.toList());
+
+                    for (ItemPedido ip : itensRemover) {
+                        itemPedidoDao.remover(ip.getPedido(), ip.getProduto());
+                    }
+
+                    pedidoDao.remover(idRemover);
+
+                    System.out.println("Pedido removido com sucesso!");
                     break;
+
                 case 0:
                     System.out.println("Saindo...\n");
                     break;

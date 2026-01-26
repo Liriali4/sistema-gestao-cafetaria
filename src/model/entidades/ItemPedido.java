@@ -1,6 +1,7 @@
 package model.entidades;
 
 public class ItemPedido {
+
     private Integer produto;
     private Integer pedido;
     private Integer quantidade;
@@ -15,7 +16,7 @@ public class ItemPedido {
         this.quantidade = quantidade;
         this.valor = valor;
     }
-    
+
     public Integer getProduto() {
         return produto;
     }
@@ -47,5 +48,9 @@ public class ItemPedido {
     public void setValor(Float valor) {
         this.valor = valor;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Item {" + "produto=" + produto + ", pedido=" + pedido + ", quantidade=" + quantidade + ", valor=" + valor + '}';
+    }
 }
