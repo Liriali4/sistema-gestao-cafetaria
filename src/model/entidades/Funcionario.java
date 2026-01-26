@@ -29,4 +29,9 @@ public class Funcionario {
         this.nome = nome;
     }
 
+    @Override
+    public String toString() {
+        return idFuncionario + "- " + nome;
+    }
+
 }
