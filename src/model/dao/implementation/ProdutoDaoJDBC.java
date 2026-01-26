@@ -24,9 +24,11 @@ public class ProdutoDaoJDBC implements ProdutoDao {
     public void inserir(Produto p) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO produtos (NOME) VALUES (?)",
+            st = conn.prepareStatement("INSERT INTO produtos (NOME, PRECO) VALUES (?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             st.setString(1, p.getNome());
+            st.setFloat(2, p.getPreco());
+
             int linhasAfectadas = st.executeUpdate();
 
             if (linhasAfectadas > 0) {
@@ -52,10 +54,12 @@ public class ProdutoDaoJDBC implements ProdutoDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
-                    "UPDATE produtos SET nome = ? WHERE idProduto =?"
+                    "UPDATE produtos SET nome = ?, preco = ? WHERE idProduto =?"
             );
             st.setString(1, p.getNome());
-            st.setInt(2, p.getIdProduto());
+            st.setFloat(2, p.getPreco());
+            st.setInt(3, p.getIdProduto());
+
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -129,6 +133,8 @@ public class ProdutoDaoJDBC implements ProdutoDao {
         Produto p = new Produto();
         p.setIdProduto(rs.getInt("idProduto"));
         p.setNome(rs.getString("nome"));
+        p.setPreco(rs.getFloat("preco"));
+
         return p;
     }
 }
