@@ -2,6 +2,7 @@ package model.dao;
 
 import db.DB;
 import model.dao.implementation.ClienteDaoJDBC;
+import model.dao.implementation.ConsultaDaoJDBC;
 import model.dao.implementation.FuncionarioDaoJDBC;
 import model.dao.implementation.ItemPedidoDaoJDBC;
 import model.dao.implementation.PedidoDaoJDBC;
@@ -27,5 +28,9 @@ public class DAO {
 
     public static ItemPedidoDao criarItemPedidoDao() {
         return new ItemPedidoDaoJDBC(DB.getConnection());
+    }
+    
+    public static ConsultaDao criarConsultaDao(){
+        return new ConsultaDaoJDBC(DB.getConnection());
     }
 }

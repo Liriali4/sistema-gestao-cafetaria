@@ -2,6 +2,7 @@ package sistemacafeteria;
 
 //import db.DBCreation;
 import java.util.Scanner;
+import sistemacafeteria.gestao.Consultas;
 import sistemacafeteria.gestao.GestaoDeClientes;
 import sistemacafeteria.gestao.GestaoDeFuncionarios;
 import sistemacafeteria.gestao.GestaoDePedidos;
@@ -51,6 +52,9 @@ public class SistemaCafeteria {
                     break;
                 case 4:
                     GestaoDePedidos.gestorDePedidos();
+                    break;
+                case 5:
+                    Consultas.consultas();
                     break;
                 case 0:
                     System.out.println("Saindo...\n");
