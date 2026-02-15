@@ -17,7 +17,8 @@ public class DBCreation {
         String baseUrl = props.getProperty("dburl");
         String dbName = props.getProperty("database");
 
-        try (Connection serverConn = DriverManager.getConnection(baseUrl, props); Statement st = serverConn.createStatement()) {
+        try (Connection serverConn = DriverManager.getConnection(baseUrl, props);
+                Statement st = serverConn.createStatement()) {
 
             String sql = "CREATE DATABASE IF NOT EXISTS " + dbName;
             st.executeUpdate(sql);

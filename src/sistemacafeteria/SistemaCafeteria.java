@@ -16,7 +16,7 @@ public class SistemaCafeteria {
 
     public static void main(String[] args) {
         System.out.println("--------------------------------------------------------");
-        System.out.println("|                    COFFE SHOP                        |");
+        System.out.println("|                    COFFEE SHOP                        |");
         System.out.println("--------------------------------------------------------");
 
         System.out.println("\n Bem-vindo(a) ao seu novo refúgio do café!!!\n\n");
